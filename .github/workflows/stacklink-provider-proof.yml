@@ -46,9 +46,10 @@ jobs:
         run: |
           mkdir -p proof
           printf '%s\n' "${{ inputs.proof_id }}" > proof/result.txt
+          head -c 409600 /dev/urandom > proof/payload.bin
       - name: Upload bounded proof artifact
         uses: actions/upload-artifact@v4
         with:
           name: ${{ inputs.proof_id }}
-          path: proof/result.txt
+          path: proof
           retention-days: 1
