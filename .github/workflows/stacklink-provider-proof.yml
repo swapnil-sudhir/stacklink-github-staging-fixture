@@ -1,0 +1,29 @@
+name: Stacklink Provider Proof
+run-name: ${{ inputs.proof_id }}
+
+on:
+  workflow_dispatch:
+    inputs:
+      proof_id:
+        description: Exact Stacklink staging proof identity
+        required: true
+        type: string
+
+permissions:
+  contents: read
+
+jobs:
+  proof:
+    runs-on: ubuntu-latest
+    timeout-minutes: 2
+    steps:
+      - name: Create bounded proof artifact
+        run: |
+          mkdir -p proof
+          printf '%s\n' "${{ inputs.proof_id }}" > proof/result.txt
+      - name: Upload bounded proof artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ inputs.proof_id }}
+          path: proof/result.txt
+          retention-days: 1
