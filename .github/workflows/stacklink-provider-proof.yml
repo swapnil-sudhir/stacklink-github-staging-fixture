@@ -8,6 +8,11 @@ on:
         description: Exact Stacklink staging proof identity
         required: true
         type: string
+      delay_seconds:
+        description: Bounded delay used only to prove exact cancellation
+        required: false
+        default: "0"
+        type: string
 
 permissions:
   contents: read
@@ -17,6 +22,8 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 2
     steps:
+      - name: Apply bounded cancellation window
+        run: sleep "${{ inputs.delay_seconds }}"
       - name: Create bounded proof artifact
         run: |
           mkdir -p proof
