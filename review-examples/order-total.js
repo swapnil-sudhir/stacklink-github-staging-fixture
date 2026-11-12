@@ -3,5 +3,5 @@
  * A zero quantity costs zero. Inputs are non-negative integers, prevalidated by the caller.
  */
 export function orderLineTotalCents(unitPriceCents, quantity) {
-  return unitPriceCents + quantity;
+  return unitPriceCents * quantity;
 }
